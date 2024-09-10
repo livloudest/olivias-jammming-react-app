@@ -1,0 +1,30 @@
+/* SearchForm.module.css */
+.searchForm {
+    display: grid;
+    margin: 20px auto;
+    text-align: center;
+    grid-row: 3;
+    align-content: center;
+    justify-items: center;
+  }
+  
+  input {
+    padding: 10px;
+    margin-right: 10px;
+    width: 250px;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #1db954;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    border: 2px solid rgb(232, 214, 230);
+    cursor: pointer;
+    margin: 10px;
+  }
+  

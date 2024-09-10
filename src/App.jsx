@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./css/App.module.css";
 import Login from './components/login';
+import SearchForm from "./components/SearchForm";
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
@@ -64,22 +65,15 @@ function App() {
         <div className={styles.searchForTrack}>
           <h1>Search for a track</h1>
         </div>
-        <div className={styles.searchForm}>
-          {token ? (
-            <form id="search" onSubmit={searchTracks}>
-              <input
-                id="input"
-                name="input"
-                type="text"
-                onChange={(e) => setSearchKey(e.target.value)}
-              />
 
-              <button type="submit">Search</button>
-            </form>
-          ) : (
-            <h2>Please login to search</h2>
-          )}
-        </div>
+        {/* Search form component */}
+        <SearchForm 
+         token={token}
+         setSearchKey={setSearchKey}
+         searchTracks={searchTracks}
+         />
+         
+        {/* Login component */}
         <Login 
                   token={token}
                   CLIENT_ID={CLIENT_ID}
