@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./css/App.module.css";
 import Login from './components/login';
 import SearchForm from "./components/SearchForm";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
@@ -72,7 +73,7 @@ function App() {
          setSearchKey={setSearchKey}
          searchTracks={searchTracks}
          />
-         
+
         {/* Login component */}
         <Login 
                   token={token}
@@ -83,20 +84,7 @@ function App() {
                   logout={logout}
         />
 
-        <div className={styles.resultsContainer}>
-          {searched && tracks.length === 0 ? (
-            <p>No tracks found</p>
-          ) : (
-            tracks.map((track) => (
-              <div key={track.id} className={styles.trackCard}>
-                {/* Display track name */}
-                <h3>{track.name}</h3>
-
-                <h5>{track.artists.map((artist) => artist.name).join(", ")}</h5>
-              </div>
-            ))
-          )}
-        </div>
+        <SearchResults tracks={tracks} searched={searched}/>
 
         <footer className={styles.footer}>This is a footer</footer>
       </div>

@@ -15,6 +15,9 @@ html {
   gap: 10px;
   width: 100%;
   height: 100vh;
+  background-image: url('./public/images/bluebackground.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .gridContainer h1 {
@@ -30,63 +33,14 @@ html {
   text-align: center;
   font-weight: bold;
   font-size: 2rem;
-  background-color: purple;
+  background-color: rgb(35, 100, 231);
   padding: 10px;
-}
-
-.searchForTrack {
-  display: grid;
-}
-
-.searchForm {
-  display: grid;
-  grid-column: 1;
-  justify-content: center;
-}
-
-.resultsContainer {
-  display: flex-box;
-  /* flex-wrap: wrap; */
-  /* flex-direction: column; */
-  /* flex-grow: 3; */
-  /* flex-shrink: 1; */
-  min-width: 300px;
-  justify-self: center;
-  grid-template-columns: 1fr;
-  grid-column: 1 / auto;
-  grid-row: 4 / 8;
-  gap: 10px;
-  /* max-height: 500px;
-  max-width: 600px; */
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.trackCard {
-  display: flex-box;
-  flex-wrap: wrap;
-  flex-grow: 2;
-  background-color: purple;
-  border: 1px solid gray;
-  padding: 10px;
-  text-align: center;
-  align-content: center;
-  margin: 10px;
-  min-width: 300px;
-}
-
-
- button .logoutButton {
-  display: grid;
-  align-items: center;
-  grid-row: 4;
-  grid-column: 2;
 }
 
 .footer {
   grid-column: 1 / 3;
   grid-row: 9;
-  background-color: purple;
+  background-color: rgb(8, 59, 161);
   position: sticky;
   padding: 10px;
 }

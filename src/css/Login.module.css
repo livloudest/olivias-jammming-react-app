@@ -7,17 +7,18 @@
     grid-column: 2;
     grid-row: 1;
     /* padding: 10px; */
-    margin: 5px 10px;
+    margin: 5px 20px;
   }
   
   .loginButton {
-    background-color: #1db954;
+    background-color: rgb(21, 67, 159);
     color: rgb(245, 233, 233);
     text-decoration: none;
     border-radius: 50px;
     font-size: 16px;
     font-weight: bold;
     border: 2px solid rgb(232, 214, 230);
+    transition: background-color 0.5s ease;
   }
   
   .logoutButton {
@@ -28,5 +29,17 @@
     border: 2px solid rgb(232, 214, 230);
     border-radius: 50px;
     font-size: 16px;
+    transition: background-color 0.5s ease;
+  }
+
+  .loginButton:hover {
     cursor: pointer;
+    background-color: rgb(35, 105, 245);
+    transition: background-color 0.5s ease;
+  }
+
+  .logoutButton:hover {
+    cursor: pointer;
+    background-color: rgb(110, 110, 110);
+    transition: background-color 0.5s ease;
   }
