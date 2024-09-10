@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-import "./css/App.module.css";
+import styles from "./css/App.module.css";
+import Login from './components/login';
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
@@ -58,53 +58,55 @@ function App() {
   };
 
   return (
-    <div className="App, grid-container">
-      <header className="header">Jammming Spotify App</header>
-      <main>
-      <h1>Search for a Track</h1>
-      {token ? (
-        <form id="search" onSubmit={searchTracks}>
-          <input
-            id="input"
-            name="input"
-            type="text"
-            onChange={(e) => setSearchKey(e.target.value)}
-          />
+    <main className={styles.main}>
+      <div className={styles.gridContainer}>
+        <header className={styles.header}>Jammming Spotify App</header>
+        <div className={styles.searchForTrack}>
+          <h1>Search for a track</h1>
+        </div>
+        <div className={styles.searchForm}>
+          {token ? (
+            <form id="search" onSubmit={searchTracks}>
+              <input
+                id="input"
+                name="input"
+                type="text"
+                onChange={(e) => setSearchKey(e.target.value)}
+              />
 
-          <button type="submit">Search</button>
-        </form>
-      ) : (
-        <h2>Please login to search</h2>
-      )}
+              <button type="submit">Search</button>
+            </form>
+          ) : (
+            <h2>Please login to search</h2>
+          )}
+        </div>
+        <Login 
+                  token={token}
+                  CLIENT_ID={CLIENT_ID}
+                  REDIRECT_URI={REDIRECT_URI}
+                  AUTH_ENDPOINT={AUTH_ENDPOINT}
+                  RESPONSE_TYPE={RESPONSE_TYPE}
+                  logout={logout}
+        />
 
-      {!token ? (
-        <a
-          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-        >
-          Login to Spotify
-        </a>
-      ) : (
-        <button onClick={logout}>Logout</button>
-      )}
-      <div className="track-list">
-        {searched && tracks.length === 0 ? (
-          <p>No tracks found</p>
-        ) : (
-          tracks.map((track) => (
-            <div key={track.id} className="track-card">
-              {/* Display track name */}
-              <h3>{track.name}</h3>
+        <div className={styles.resultsContainer}>
+          {searched && tracks.length === 0 ? (
+            <p>No tracks found</p>
+          ) : (
+            tracks.map((track) => (
+              <div key={track.id} className={styles.trackCard}>
+                {/* Display track name */}
+                <h3>{track.name}</h3>
 
-              <h5>{track.artists.map(artist => artist.name).join(', ')}</h5>
-            </div>
-          ))
-        )}
+                <h5>{track.artists.map((artist) => artist.name).join(", ")}</h5>
+              </div>
+            ))
+          )}
+        </div>
+
+        <footer className={styles.footer}>This is a footer</footer>
       </div>
-      </main>
-      <footer>
-        This is a footer
-      </footer>
-    </div>
+    </main>
   );
 }
 
