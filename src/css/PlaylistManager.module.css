@@ -1,0 +1,94 @@
+/* .playlistManager { */
+  /* display: grid;
+  grid-row: 3;
+  grid-column: 2;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 300px; Adjust width as needed */
+/* } */
+/* 
+.playlistManager h1 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+} */
+
+.parentContainter {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+
+button {
+  background-color: #1db954; /* Spotify green */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #a1a1a1;
+  cursor: not-allowed;
+}
+
+.playlistContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(5, 5, 5, 0.764);
+  border-radius: 10px;
+  padding: 30px;
+  margin: 10px 20px;
+  min-width: 300px;
+  max-width: 500px;
+  max-height: 400px;
+  overflow-y: auto;
+  align-items: center;
+}
+
+.playlistCard {
+  display: flex;
+  background-color: rgb(35, 100, 231);
+  /* border: 2px solid black; */
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  align-items: center;
+  /* margin: 10px; */
+  min-width: 300px;
+  justify-content: space-between;
+}
+
+.albumImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+  
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.trackCard h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.trackCard h5 {
+  margin: 0;
+  font-size: 14px;
+  color: #d0c7c7;
+}
+
+.playlistForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: flex-start;
+}

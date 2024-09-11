@@ -28,6 +28,7 @@
     align-items: center;
     margin: 0;
     min-width: 300px;
+    justify-content: space-between;
   }
 
   .albumImage {
@@ -51,4 +52,18 @@
     margin: 0;
     font-size: 14px;
     color: #d0c7c7;
+  }
+
+  .addButton {
+    background-color: #1db954; /* Spotify green */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+  }
+  
+  .addButton:hover {
+    background-color: #1ed760; /* Slightly lighter green */
   }
