@@ -1,0 +1,70 @@
+.tracklistContainer {
+  display: flex;
+  flex-direction: column;
+  /* grid-row: 4;
+  grid-column: 2; */
+  justify-self: center;
+
+  min-width: 400px;
+  max-width: 500px;
+  background-color: rgba(5, 5, 5, 0.764);
+  overflow-y: auto;
+  margin: 10px 20px;
+  padding: 2rem;
+  height: 100vh;
+  border-radius: 10px;
+}
+
+.playlistCard {
+  display: flex;
+  background-color: rgb(35, 100, 231);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  align-items: center;
+  min-width: 300px;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.albumImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.trackInfo h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.trackInfo h5 {
+  margin: 0;
+  font-size: 14px;
+  color: #d0c7c7;
+}
+
+button {
+  background-color: #1db954; /* Spotify green */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+button:disabled {
+  background-color: #a1a1a1;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #1ed760; /* Slightly lighter green */
+}

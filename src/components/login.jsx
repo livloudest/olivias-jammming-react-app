@@ -11,7 +11,7 @@ const Login = ({
   logout,
 }) => {
   const SCOPES = 'playlist-modify-public playlist-modify-private';
-  const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(SCOPES)}`
+  const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(SCOPES)}&show_dialog=true`;
   console.log(loginURL)
 
   return (
@@ -20,7 +20,7 @@ const Login = ({
         <a href={loginURL} className={styles.loginButton}>
           Login to Spotify
         </a>
-      ) : (
+      ) : ( 
         <button onClick={logout} className={styles.logoutButton}>
           Logout
         </button>

@@ -4,7 +4,8 @@ import styles from "./css/App.module.css";
 import Login from "./components/login";
 import SearchForm from "./components/SearchForm";
 import SearchResults from "./components/SearchResults";
-import PlaylistManager from "./components/PlaylistManager";
+import PlaylistForm from "./components/PlaylistForm";
+import TrackList from "./components/TrackList";
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
@@ -17,6 +18,7 @@ function App() {
   const [tracks, setTracks] = useState([]);
   const [searched, setSearched] = useState(false);
   const [selectedTracks, setSelectedTracks] = useState([]);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -32,14 +34,35 @@ function App() {
       window.location.hash = "";
       window.localStorage.setItem("token", token);
     }
-
     setToken(token);
   }, []);
 
+  useEffect(() => {
+    if (token) {
+      fetchUserId();
+    }
+  }, [token]);
+
   const logout = () => {
     setToken("");
+    setUserId("");
     window.localStorage.removeItem("token");
   };
+
+  const fetchUserId = async () => {
+    try {
+      const response = await axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserId(response.data.id);
+      console.log("userId:", userId);
+    } catch (error) {
+      console.error("error fetching user ID:", error.response?.data || error);
+    }
+  };
+
   const searchTracks = async (e) => {
     e.preventDefault();
     setSearched(true);
@@ -69,16 +92,20 @@ function App() {
 
   return (
     <main className={styles.main}>
+      {/* <div className={styles.debug}>
+        userId: {userId} <br></br>
+        token: {token.substring(0, 20)}
+      </div> */}
+
       <div className={styles.gridContainer}>
         <header className={styles.header}>Jammming Spotify App</header>
 
-          <div className={styles.searchHeader}>
-            <h1>Search for a track</h1>
-          </div>
-          <div className={styles.playlistHeader}>
-            <h1>Create a Playlist</h1>
-          </div>
-
+        <div className={styles.searchHeader}>
+          <h1>Search for a track</h1>
+        </div>
+        <div className={styles.playlistHeader}>
+          <h1>Create a Playlist</h1>
+        </div>
 
         {/* Search form component */}
         <SearchForm
@@ -104,14 +131,23 @@ function App() {
           addTrackToPlaylist={addTrackToPlaylist}
         />
 
-        {/* Pass selected tracks to PlaylistManager */}
-        <PlaylistManager 
-          tracks={selectedTracks} 
+        {/* Pass selected tracks to PlaylistForm */}
+        <PlaylistForm
+          tracks={selectedTracks}
           setTracks={setSelectedTracks}
           token={token}
           searchResults={tracks}
           setSearchResults={setTracks}
-          />
+          userId={userId}
+          setUserId={setUserId}
+        />
+
+        <TrackList
+          tracks={selectedTracks}
+          setTracks={setSelectedTracks}
+          searchResults={tracks}
+          setSearchResults={setTracks}
+        />
 
         <footer className={styles.footer}>This is a footer</footer>
       </div>

@@ -8,6 +8,12 @@ html {
   width: 100%;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .gridContainer {
   display: grid;
   grid-template-columns:repeat(2, 1fr);
@@ -48,4 +54,15 @@ html {
   background-color: rgb(8, 59, 161);
   position: sticky;
   padding: 10px;
+}
+
+
+.debug {
+  top: 0;
+  left: 0;
+  height: 5rem;
+  width: 20rem;
+  background-color: darkslategray;
+  z-index: 10;
+  position: absolute;
 }

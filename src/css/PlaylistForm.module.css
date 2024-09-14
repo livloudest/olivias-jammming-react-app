@@ -1,0 +1,10 @@
+.playlistForm form {
+  display: flex-box;
+  text-align: center;
+}
+
+.playlistForm button:hover {
+  cursor: pointer;
+  background-color: rgb(35, 100, 231);
+  transition: background-color 0.5s ease;
+}

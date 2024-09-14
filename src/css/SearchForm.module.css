@@ -1,9 +1,9 @@
 /* SearchForm.module.css */
 .searchForm {
-    display: grid;
-    margin: 20px auto;
+    display: flex-box;
+    flex-wrap: wrap;
+    /* margin: 20px auto; */
     text-align: center;
-    grid-row: 3;
     align-content: center;
     justify-items: center;
   }
