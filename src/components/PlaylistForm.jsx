@@ -4,12 +4,8 @@ import styles from "../css/PlaylistForm.module.css";
 
 const PlaylistForm = ({
   tracks,
-  setTracks,
   token,
-  searchResults,
-  setSearchResults,
   userId,
-  setUserId,
 }) => {
   const [playlistName, setPlaylistName] = useState("");
   const [isCreating, setIsCreating] = useState(false);

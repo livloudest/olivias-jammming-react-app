@@ -57,27 +57,6 @@ function App() {
     }
   };
 
-  const searchTracks = async (e) => {
-    e.preventDefault();
-    setSearched(true);
-    try {
-      const response = await axios.get("https://api.spotify.com/v1/search", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          q: searchKey,
-          type: "track",
-        },
-      });
-
-      setTracks(response.data.tracks.items);
-      console.log(response.data.tracks.items); // Log the updated artists right after setting state
-    } catch (error) {
-      console.error("Error fetching artists:", error);
-    }
-  };
-
   return (
     <main className={styles.main}>
       {/* <div className={styles.debug}>
@@ -98,8 +77,11 @@ function App() {
         {/* Search form component */}
         <SearchForm
           token={token}
+          searchKey={searchKey}
           setSearchKey={setSearchKey}
-          searchTracks={searchTracks}
+          setTracks={setTracks}
+          setSearched={setSearched}
+          // searchTracks={searchTracks}
         />
 
         {/* Login component */}
@@ -113,7 +95,7 @@ function App() {
           setUserId={setUserId}
         />
 
-        {/* //Passes tracks and addTrackToPlaylist to SearchResults */}
+        {/* Passes tracks and addTrackToPlaylist to SearchResults */}
         <SearchResults
           tracks={tracks}
           token={token}
