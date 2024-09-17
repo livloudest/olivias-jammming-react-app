@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./css/App.module.css";
-import Login from "./components/login";
+import Login from "./components/Login";
 import SearchForm from "./components/SearchForm";
 import SearchResults from "./components/SearchResults";
 import PlaylistForm from "./components/PlaylistForm";
@@ -42,12 +42,6 @@ function App() {
       fetchUserId();
     }
   }, [token]);
-
-  const logout = () => {
-    setToken("");
-    setUserId("");
-    window.localStorage.removeItem("token");
-  };
 
   const fetchUserId = async () => {
     try {
@@ -121,7 +115,8 @@ function App() {
           REDIRECT_URI={REDIRECT_URI}
           AUTH_ENDPOINT={AUTH_ENDPOINT}
           RESPONSE_TYPE={RESPONSE_TYPE}
-          logout={logout}
+          setToken={setToken}
+          setUserId={setUserId}
         />
 
         {/* //Passes tracks and addTrackToPlaylist to SearchResults */}
