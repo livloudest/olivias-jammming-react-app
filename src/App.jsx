@@ -78,12 +78,6 @@ function App() {
     }
   };
 
-  const addTrackToPlaylist = (track) => {
-    if (!selectedTracks.find((t) => t.id === track.id)) {
-      setSelectedTracks((prev) => [...prev, track]);
-    }
-  };
-
   return (
     <main className={styles.main}>
       {/* <div className={styles.debug}>
@@ -123,7 +117,9 @@ function App() {
         <SearchResults
           tracks={tracks}
           token={token}
-          addTrackToPlaylist={addTrackToPlaylist}
+          searched={searched}
+          setSelectedTracks={setSelectedTracks}
+          selectedTracks={selectedTracks}
         />
 
         {/* Pass selected tracks to PlaylistForm */}

@@ -3,7 +3,14 @@ import React from "react";
 import styles from "../css/SearchResults.module.css";
 
 // TODO: Update the props that are passed here, currently they don't match
-const SearchResults = ({ tracks, searched, addTrackToPlaylist }) => {
+const SearchResults = ({ tracks, searched, setSelectedTracks, selectedTracks }) => {
+  
+  const addTrackToPlaylist = (track) => {
+    if (!selectedTracks.find((t) => t.id === track.id)) {
+      setSelectedTracks((prev) => [...prev, track]);
+    }
+  };
+  
   return (
     
     <div className={styles.resultsContainer}>
@@ -25,8 +32,6 @@ const SearchResults = ({ tracks, searched, addTrackToPlaylist }) => {
             <h5>{track.artists.map((artist) => artist.name).join(", ")}</h5>
             </div>
             <button
-                // TODO clicking should add / append the track object to the selected tracks
-                // in the App (parent component)
                 onClick={() => addTrackToPlaylist(track)}
                 className={styles.addButton}
                 >
