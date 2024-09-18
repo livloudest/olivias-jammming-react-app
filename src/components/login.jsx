@@ -11,7 +11,7 @@ const Login = ({
   setToken,
   setUserId,
 }) => {
-  const SCOPES = "playlist-modify-public playlist-modify-private";
+  const SCOPES = "playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative";
   const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
     SCOPES
   )}&show_dialog=true`;

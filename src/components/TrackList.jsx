@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/TrackList.module.css";
+import axios from "axios";
 
 const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selectedPlaylist, token }) => {
 
@@ -15,7 +16,10 @@ const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selecte
             Authorization: `Bearer ${token}`,
           },
         });
-        setPlaylistTracks(response.data.items);
+        setPlaylistTracks(response.data.items.map(item => ({
+          ...item.track,
+          isFromSearch: false
+        })));
       } catch (error) {
         alert('Error fetching playlist tracks', error);
       }
@@ -26,8 +30,33 @@ const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selecte
 
 
   const handleRemoveTrack = (track) => {
-    setTracks(tracks.filter((t) => t.id !== track.id));
-    setSearchResults([...searchResults, track]);
+    if (track.isFromSearch) {
+      setTracks(tracks.filter((t) => t.id !== track.id));
+      setSearchResults([...searchResults, track]);
+    } else {
+      setTracks(tracks.filter((t) => t.id !== track.id));
+    }
+  };
+
+  const handleDeleteTrack = async (track) => {
+    try {
+      await axios.request({
+        url: `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        data: {
+          tracks: [{ uri: track.uri }],
+        },
+      });
+      setTracks((prev) => prev.filter((t) => t.id !== track.id));
+      alert('Tracks removed from playlist!');
+    } catch (error) {
+      console.error('Error removing track from playlist', error);
+      alert('Error removing track from playlist.');
+    }
   };
 
   return (
@@ -49,12 +78,14 @@ const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selecte
                 <h3>{track.name}</h3>
                 <h5>{track.artists.map((artist) => artist.name).join(", ")}</h5>
               </div>
+              <div className={styles.trackButtons}>
               <button
                 className={styles.removeButton}
                 onClick={() => handleRemoveTrack(track)}
               >
                 -
               </button>
+            </div>
             </div>
           ))}
         </div>

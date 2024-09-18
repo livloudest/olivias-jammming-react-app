@@ -1,8 +1,7 @@
 /* SearchForm.module.css */
 .searchForm {
-    display: flex-box;
-    flex-wrap: wrap;
-    /* margin: 20px auto; */
+    display: grid;
+    grid-column: 1;
     text-align: center;
     align-content: center;
     justify-items: center;

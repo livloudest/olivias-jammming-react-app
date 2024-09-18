@@ -59,32 +59,10 @@ function App() {
 
   return (
     <main className={styles.main}>
-      {/* <div className={styles.debug}>
-        userId: {userId} <br></br>
-        token: {token.substring(0, 20)}
-      </div> */}
-
       <div className={styles.gridContainer}>
         <header className={styles.header}>Jammming Spotify App</header>
 
-        <div className={styles.searchHeader}>
-          <h1>Search for a track</h1>
-        </div>
-        <div className={styles.playlistHeader}>
-          <h1>Create a Playlist</h1>
-        </div>
-
-        {/* Search form component */}
-        <SearchForm
-          token={token}
-          searchKey={searchKey}
-          setSearchKey={setSearchKey}
-          setTracks={setTracks}
-          setSearched={setSearched}
-          // searchTracks={searchTracks}
-        />
-
-        {/* Login component */}
+        {/* Render login/logout button */}
         <Login
           token={token}
           CLIENT_ID={CLIENT_ID}
@@ -95,33 +73,63 @@ function App() {
           setUserId={setUserId}
         />
 
-        {/* Passes tracks and addTrackToPlaylist to SearchResults */}
-        <SearchResults
-          tracks={tracks}
-          token={token}
-          searched={searched}
-          setSelectedTracks={setSelectedTracks}
-          selectedTracks={selectedTracks}
-        />
+        {!token && (
+          <div className={styles.centeredMessage}>
+            <h2>Please log in to spotify to continue</h2>
+            </div>
+        )}
 
-        {/* Pass selected tracks to PlaylistForm */}
-        <PlaylistForm
-          tracks={selectedTracks}
-          setTracks={setSelectedTracks}
-          token={token}
-          searchResults={tracks}
-          setSearchResults={setTracks}
-          userId={userId}
-          setUserId={setUserId}
-          setSelectedPlaylist={setSelectedPlaylist}
-        />
+        {/* Only display the search and playlist components if the user is logged in */}
+        {token && (
+          <>
+            <div className={styles.searchHeader}>
+              <h1>Search for a track</h1>
+            </div>
+            <div className={styles.playlistHeader}>
+              <h1>Create a Playlist</h1>
+            </div>
 
-        <TrackList
-          tracks={selectedTracks}
-          setTracks={setSelectedTracks}
-          searchResults={tracks}
-          setSearchResults={setTracks}
-        />
+            {/* Search form component */}
+            <SearchForm
+              token={token}
+              searchKey={searchKey}
+              setSearchKey={setSearchKey}
+              setTracks={setTracks}
+              setSearched={setSearched}
+            />
+
+            {/* Passes tracks and addTrackToPlaylist to SearchResults */}
+            <SearchResults
+              tracks={tracks}
+              token={token}
+              searched={searched}
+              setSelectedTracks={setSelectedTracks}
+              selectedTracks={selectedTracks}
+            />
+
+            {/* Pass selected tracks to PlaylistForm */}
+            <PlaylistForm
+              tracks={selectedTracks}
+              setTracks={setSelectedTracks}
+              token={token}
+              searchResults={tracks}
+              setSearchResults={setTracks}
+              userId={userId}
+              setUserId={setUserId}
+              setSelectedPlaylist={setSelectedPlaylist}
+            />
+
+            {/* TrackList component */}
+            <TrackList
+              tracks={selectedTracks}
+              setTracks={setSelectedTracks}
+              searchResults={tracks}
+              setSearchResults={setTracks}
+              token={token}
+              selectedPlaylist={selectedPlaylist}
+            />
+          </>
+        )}
 
         <footer className={styles.footer}>This is a footer</footer>
       </div>
