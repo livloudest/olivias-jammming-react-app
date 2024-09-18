@@ -1,14 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import styles from "../css/PlaylistForm.module.css";
 
-const PlaylistForm = ({
-  tracks,
-  token,
-  userId,
-}) => {
+const PlaylistForm = ({ tracks, token, userId, setSelectedPlaylist, setTracks }) => {
   const [playlistName, setPlaylistName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
+  const [filteredPlaylists, setFilteredPlaylists] = useState([]);
+  const [selectedPlaylist, setSelectedPlaylistState] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  const fetchUserPlaylists = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.spotify.com/v1/me/playlists",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setPlaylists(response.data.items);
+      setFilteredPlaylists(response.data.items); //Initialize filtered Playlists
+    } catch (error) {
+      alert("error fetching playlists", error);
+    }
+  };
+
+  const fetchPlaylistTracks = async (playlistId) => {
+    try {
+      const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setTracks(response.data.items.map(item => item.track));
+    } catch (error) {
+      alert('Error fetching playlist tracks', error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchUserPlaylists();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    //Filter playlists based on the search term
+    if (playlists && Array.isArray(playlists))
+      setFilteredPlaylists(
+        playlists.filter((playlist) =>
+          playlist.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+  }, [searchTerm, playlists]);
 
   const handleCreatePlaylist = async () => {
     setIsCreating(true);
@@ -37,30 +88,8 @@ const PlaylistForm = ({
 
       const playlistId = createPlaylistResponse.data.id;
 
-      // for testing only
-      // This is what tracks/selectedTracks should look like when it is passed through
-      // const fakeTracks = [
-      //   {
-      //     id: 23,
-      //     uri: "spotify:track:2k6dU3c2IBotzynOyevHJx",
-      //   },
-      //   {
-      //     id: 24,
-      //     uri: "spotify:track:1301WleyT98MSxVHPZCA6M",
-      //   },
-      //   {
-      //     id: 25,
-      //     uri: "spotify:episode:512ojhOuo1ktJprKbVcKyQ",
-      //   },
-      // ];
-
       //Add tracks to the newly created playlist
       const trackUris = tracks.map((track) => track.uri);
-      //   const trackUris = tracks.map((track) => track.uri);
-
-      //for testing purposes only
-      // console.log("playlist id: ", playlistId);
-      // console.log("trackUris: ", trackUris);
 
       await axios.post(
         `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
@@ -78,6 +107,9 @@ const PlaylistForm = ({
 
       alert("Playlist created and tracks added!");
       setPlaylistName("");
+      setSelectedPlaylistState("");
+      setDropdownVisible(false);
+      fetchUserPlaylists("");
     } catch (error) {
       console.error(
         "Error creating playlist or adding tracks:",
@@ -88,6 +120,63 @@ const PlaylistForm = ({
       setIsCreating(false);
     }
   };
+
+  const handleAddTracksToSelectedPlaylist = async () => {
+    if (!selectedPlaylist) {
+      alert("Please select a playlist");
+      return;
+    }
+
+    try {
+      const trackUris = tracks.map((track) => track.uri);
+
+      await axios.post(
+        `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+        {
+          uris: trackUris,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      alert("Tracks added to the selected playlist!");
+      setSelectedPlaylistState("");
+      setSearchTerm("");
+      setDropdownVisible(false);
+    } catch (error) {
+      console.error(error.respone ? error.response.data : error);
+    }
+  };
+
+  const handlePlaylistSelection = (playlistId) => {
+    setSelectedPlaylistState(playlistId);
+    setSelectedPlaylist(playlistId);
+    fetchPlaylistTracks(playlistId);
+    setDropdownVisible(false);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setDropdownVisible(true);
+  }
+
+  const handleOutsideClick = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setDropdownVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown',handleOutsideClick);
+    }
+  }, []);
 
   return (
     <div className={styles.parentContainer}>
@@ -103,6 +192,41 @@ const PlaylistForm = ({
             {isCreating ? "Creating..." : "Create Playlist"}
           </button>
         </form>
+
+        {/* Search bar for filtering playlists */}
+        <div className={styles.playlistSearch}>
+          <input
+            type="text"
+            placeholder="Search for a playlist"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            // onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {/* Display the user's existing playlists */}
+          <div className={styles.playlistList} ref={dropdownRef}>
+            {searchTerm && filteredPlaylists.length > 0 && dropdownVisible && (
+              <ul className={styles.playlistDropdown}>
+                {filteredPlaylists.map((playlist) => (
+                  <li
+                    key={playlist.id}
+                    className={`${styles.playlistItem} ${
+                      selectedPlaylist === playlist.id ? styles.selected : ""
+                    }`}
+                    onClick={() => {
+                      handlePlaylistSelection(playlist.id)
+                    }}
+                  >
+                    {playlist.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <button
+            onClick={handleAddTracksToSelectedPlaylist}
+            disabled={!selectedPlaylist}
+          >Update</button>
+        </div>
       </div>
     </div>
   );

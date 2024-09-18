@@ -15,7 +15,7 @@ const Login = ({
   const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
     SCOPES
   )}&show_dialog=true`;
-  console.log(loginURL);
+  // console.log(loginURL);
 
   const logout = () => {
     setToken("");

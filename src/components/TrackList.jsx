@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../css/TrackList.module.css";
 
-const TrackList = ({ tracks, setTracks, searchResults, setSearchResults }) => {
+const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selectedPlaylist, token }) => {
+
+  const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  useEffect(() => {
+    const fetchPlaylistTracks = async () => {
+      if (!selectedPlaylist) return;
+
+      try {
+        const response = await axios.get(`https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPlaylistTracks(response.data.items);
+      } catch (error) {
+        alert('Error fetching playlist tracks', error);
+      }
+    };
+
+    fetchPlaylistTracks();
+  }, [selectedPlaylist, token])
+
+
   const handleRemoveTrack = (track) => {
     setTracks(tracks.filter((t) => t.id !== track.id));
     setSearchResults([...searchResults, track]);

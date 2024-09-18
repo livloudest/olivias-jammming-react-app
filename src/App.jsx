@@ -12,13 +12,13 @@ function App() {
   const REDIRECT_URI = "http://localhost:5173/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
-
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [tracks, setTracks] = useState([]);
   const [searched, setSearched] = useState(false);
   const [selectedTracks, setSelectedTracks] = useState([]);
   const [userId, setUserId] = useState("");
+  const [selectedPlaylist, setSelectedPlaylist] = useState('')
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -51,7 +51,7 @@ function App() {
         },
       });
       setUserId(response.data.id);
-      console.log("userId:", userId);
+      // console.log("userId:", userId);
     } catch (error) {
       console.error("error fetching user ID:", error.response?.data || error);
     }
@@ -113,6 +113,7 @@ function App() {
           setSearchResults={setTracks}
           userId={userId}
           setUserId={setUserId}
+          setSelectedPlaylist={setSelectedPlaylist}
         />
 
         <TrackList
