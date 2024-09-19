@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import styles from "../css/Login.module.css";
 
@@ -22,6 +22,17 @@ const Login = ({
     setUserId("");
     window.localStorage.removeItem("token");
   };
+
+  useEffect(() => {
+    if (token) {
+      const logoutTimer = setTimeout(() => {
+        logout();
+        alert('Please log in again. Your session has expired.');
+      }, 3600 * 1000); //logout in one hour
+
+      return () => clearTimeout(logoutTimer);
+    }
+  }, [token]);
 
   return (
     <div className={styles.loginContainer}>

@@ -19,18 +19,24 @@ const PlaylistForm = ({
 
   const dropdownRef = useRef(null);
 
+
+  // implemented pagination handling to ensure all playlists are loaded from user
   const fetchUserPlaylists = async () => {
     try {
-      const response = await axios.get(
-        "https://api.spotify.com/v1/me/playlists",
-        {
+      let allPlaylists = [];
+      let url = "https://api.spotify.com/v1/me/playlists";
+
+      while (url) {
+        const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
-      );
-
-      const userPlaylists = response.data.items.filter(
+        });
+        allPlaylists = allPlaylists.concat(response.data.items);
+        url = response.data.next;
+      }
+      
+      const userPlaylists = allPlaylists.filter(
         (playlist) => playlist.owner.id === userId
       );
 
@@ -99,7 +105,7 @@ const PlaylistForm = ({
         {
           name: playlistName,
           description: "New playlist created via Jammming App",
-          public: false,
+          public: true,
         },
         {
           headers: {
