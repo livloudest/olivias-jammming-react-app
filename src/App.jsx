@@ -6,6 +6,8 @@ import SearchForm from "./components/SearchForm";
 import SearchResults from "./components/SearchResults";
 import PlaylistForm from "./components/PlaylistForm";
 import TrackList from "./components/TrackList";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
@@ -19,6 +21,7 @@ function App() {
   const [selectedTracks, setSelectedTracks] = useState([]);
   const [userId, setUserId] = useState("");
   const [selectedPlaylist, setSelectedPlaylist] = useState('')
+  const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -103,8 +106,11 @@ function App() {
               tracks={tracks}
               token={token}
               searched={searched}
+              selectedPlaylist={selectedPlaylist}
               setSelectedTracks={setSelectedTracks}
               selectedTracks={selectedTracks}
+              selectedPlaylistTracks={selectedPlaylistTracks}
+              setSelectedPlaylistTracks={setSelectedPlaylistTracks}
             />
 
             {/* Pass selected tracks to PlaylistForm */}
@@ -117,6 +123,8 @@ function App() {
               userId={userId}
               setUserId={setUserId}
               setSelectedPlaylist={setSelectedPlaylist}
+              selectedPlaylistTracks={selectedPlaylistTracks}
+              setSelectedPlaylistTracks={setSelectedPlaylistTracks}
             />
 
             {/* TrackList component */}
@@ -128,9 +136,10 @@ function App() {
               token={token}
               selectedPlaylist={selectedPlaylist}
             />
+
           </>
         )}
-
+        <ToastContainer />
         <footer className={styles.footer}>This is a footer</footer>
       </div>
     </main>

@@ -8,17 +8,19 @@ const PlaylistForm = ({
   userId,
   setSelectedPlaylist,
   setTracks,
+  selectedPlaylistTracks,
+  setSelectedPlaylistTracks
 }) => {
   const [playlistName, setPlaylistName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [filteredPlaylists, setFilteredPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylistState] = useState("");
+  // const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const dropdownRef = useRef(null);
-
 
   // implemented pagination handling to ensure all playlists are loaded from user
   const fetchUserPlaylists = async () => {
@@ -35,7 +37,7 @@ const PlaylistForm = ({
         allPlaylists = allPlaylists.concat(response.data.items);
         url = response.data.next;
       }
-      
+
       const userPlaylists = allPlaylists.filter(
         (playlist) => playlist.owner.id === userId
       );
@@ -63,7 +65,7 @@ const PlaylistForm = ({
         }
       );
 
-      setTracks(response.data.items.map((item) => item.track));
+      setSelectedPlaylistTracks(response.data.items.map((item) => item.track));
     } catch (error) {
       alert("Error fetching playlist tracks", error);
     }
@@ -170,11 +172,8 @@ const PlaylistForm = ({
       const existingTrackUris = existingTracksResponse.data.items.map(
         (item) => item.track.uri
       );
-      console.log("Existing track uris:", existingTrackUris); //debugging
 
-      // get URIs of selected tracks wanted in the playlist
       const selectedTrackUris = tracks.map((track) => track.uri);
-      console.log("selected track uris:", selectedTrackUris); //debugging
 
       const tracksToAdd = selectedTrackUris.filter(
         (uri) => !existingTrackUris.includes(uri)
@@ -255,8 +254,38 @@ const PlaylistForm = ({
     };
   }, []);
 
+  const handleRemoveTrack = async (trackUri) => {
+    if (!selectedPlaylist) {
+      alert("Please select a playlist");
+      return;
+    }
+
+    try {
+      //remove track from selected playlist
+      await axios.request({
+        url: `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: {
+          tracks: [{ uri: trackUri }],
+        },
+      });
+
+      setSelectedPlaylistTracks((prevTracks) =>
+        prevTracks.filter((track) => track.uri !== trackUri)
+      );
+    } catch (error) {
+      console.error(error.response ? error.response.data : error);
+      alert("error removing track from the playlist.");
+    }
+  };
+
   return (
-    <div className={styles.parentContainer}>
+    <>
+      {/* Playlist creation form */}
       <div className={styles.playlistForm}>
         <form id="playlistform" onSubmit={(e) => e.preventDefault()}>
           <input
@@ -270,15 +299,19 @@ const PlaylistForm = ({
           </button>
         </form>
       </div>
-      {/* Search bar for filtering playlists */}
+
+      {/* Search for existing playlists */}
+      <div className={styles.searchHeader}>
+        <h1>Search for a Playlist</h1>
+      </div>
       <div className={styles.playlistSearch}>
         <input
           type="text"
           placeholder="Search for a playlist"
           value={searchTerm}
           onChange={handleSearchChange}
-          // onChange={(e) => setSearchTerm(e.target.value)}
         />
+
         {/* Display the user's existing playlists */}
         <div className={styles.playlistList} ref={dropdownRef}>
           {searchTerm && filteredPlaylists.length > 0 && dropdownVisible && (
@@ -299,14 +332,47 @@ const PlaylistForm = ({
             </ul>
           )}
         </div>
-        <button
-          onClick={handleAddTracksToSelectedPlaylist}
-          disabled={!selectedPlaylist}
-        >
-          Update
-        </button>
+
       </div>
-    </div>
+      {/* new box to load selected playlist */}
+      <div className={styles.selectedPlaylistBox}>
+        {selectedPlaylist ? (
+          <div>
+            {selectedPlaylistTracks.length > 0 ? (
+              selectedPlaylistTracks.map((track) => (
+                <div key={track.id} className={styles.playlistCard}>
+                  {track.album?.images?.length > 0 && (
+                    <img
+                      src={track.album.images[0].url}
+                      alt={track.name}
+                      className={styles.albumImage}
+                    />
+                  )}
+                  <div className={styles.trackInfo}>
+                    <h3>{track.name}</h3>
+                    <h5>
+                      {track.artists.map((artist) => artist.name).join(", ")}
+                    </h5>
+                  </div>
+                  <div className={styles.trackButtons}>
+                    <button
+                      className={styles.removeButton}
+                      onClick={() => handleRemoveTrack(track.uri)}
+                    >
+                      -
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No tracks found in this playlist</p>
+            )}
+          </div>
+        ) : (
+          <p>No playlist selected</p>
+        )}
+      </div>
+    </>
   );
 };
 

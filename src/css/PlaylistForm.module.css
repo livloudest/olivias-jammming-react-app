@@ -1,12 +1,8 @@
-.parentContainer {
+.playlistForm {
   display: grid;
   grid-row: 3;
-  grid-column: 2;
-  text-align: center;
-}
-
-.playlistForm {
-  
+  grid-column: 3;
+  justify-content: center;
 }
 
 .playlistForm button:hover {
@@ -16,8 +12,18 @@
 }
 
 .playlistSearch {
+  display: flex;
+  grid-row: 3;
+  grid-column: 2;
   position: relative;
+  justify-content: center;
+}
 
+.searchHeader {
+  display: grid;
+  grid-row: 2;
+  text-align: center;
+  align-items: center;
 }
 
 .playlistDropdown {
@@ -28,6 +34,7 @@
   background: black;
   border: 1px solid #ccc;
   z-index: 1000;
+  list-style: none;
 }
 
 .playlistItem {
@@ -38,4 +45,57 @@
 .playlistItem:hover,
 .selected {
   background-color: #2d00e2;
+}
+
+.selectedPlaylistBox {
+  display: grid;
+  grid-row: 4 / 10;
+  overflow-y: auto;
+  justify-self: center;
+  margin: 10px 20px;
+  min-width: 400px;
+  max-width: 500px;
+  padding: 2rem;
+  background-color: rgba(5, 5, 5, 0.764);
+  border-radius: 5px;
+  max-height: 100vh;
+}
+
+.selectedPlaylistBox ul {
+  list-style-type: none;
+  padding: 0;
+}
+.playlistCard {
+  display: flex;
+  background-color: rgb(35, 100, 231);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  align-items: center;
+  min-width: 300px;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.albumImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.trackInfo h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.trackInfo h5 {
+  margin: 0;
+  font-size: 14px;
+  color: #d0c7c7;
 }

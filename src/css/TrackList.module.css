@@ -1,6 +1,6 @@
 .tracklistContainer {
   display: grid;
-  grid-row: 4;
+  grid-row: 4 / 10;
   grid-column: 3;
   justify-self: center;
   min-width: 400px;

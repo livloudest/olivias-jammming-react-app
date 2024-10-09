@@ -13,7 +13,6 @@
     padding: 30px;
     max-height: 100%;
     margin: 10px 20px;
-    /* border: 2px solid black; */
     border-radius: 10px;
     background-color: rgba(5, 5, 5, 0.764);
   }
@@ -55,6 +54,7 @@
   }
 
   .addButton {
+    display: flex;
     background-color: #1db954; /* Spotify green */
     color: white;
     border: none;
@@ -62,8 +62,13 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: 15px;
+    width: 50px;
+    height: 30px;
+    justify-content: center;
+    align-content: center;
   }
   
   .addButton:hover {
     background-color: #1ed760; /* Slightly lighter green */
   }
+

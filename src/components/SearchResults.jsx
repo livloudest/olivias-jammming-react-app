@@ -1,17 +1,54 @@
 import React from "react";
-
 import styles from "../css/SearchResults.module.css";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// TODO: Update the props that are passed here, currently they don't match
 const SearchResults = ({
   tracks,
   searched,
   setSelectedTracks,
   selectedTracks,
+  selectedPlaylistTracks,
+  setSelectedPlaylistTracks,
+  selectedPlaylist,
+  token,
 }) => {
   const addTrackToPlaylist = (track) => {
     if (!selectedTracks.find((t) => t.id === track.id)) {
       setSelectedTracks((prev) => [...prev, track]);
+    }
+  };
+
+  const addTrackToSelectedPlaylist = async (track) => {
+    if (!selectedPlaylistTracks.find((t) => t.id === track.id)) {
+      setSelectedPlaylistTracks((prev) => [...prev, track]);
+
+      try {
+        await axios.post(
+          `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+          { uris: [track.uri] },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        toast.success("New track added to the playlist!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } catch (error) {
+        toast.error("Failed to add track to playlist.", {
+          autoClose: 3000,
+        });
+      }
+    } else {
+      toast.warn("Track is already in the playlist", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -37,11 +74,18 @@ const SearchResults = ({
               onClick={() => addTrackToPlaylist(track)}
               className={styles.addButton}
             >
-              +
+              New
+            </button>
+            <button
+              className={styles.addPlaylistButton}
+              onClick={() => addTrackToSelectedPlaylist(track)}
+            >
+              Add
             </button>
           </div>
         ))
       )}
+      <ToastContainer />
     </div>
   );
 };
