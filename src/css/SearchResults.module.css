@@ -27,7 +27,7 @@
     align-items: center;
     margin: 0;
     min-width: 300px;
-    justify-content: space-between;
+
   }
 
   .albumImage {
@@ -53,8 +53,14 @@
     color: #d0c7c7;
   }
 
-  .addButton {
+  .buttonContainer {
     display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin-left: auto;
+  }
+
+  .newButton {
     background-color: #1db954; /* Spotify green */
     color: white;
     border: none;
@@ -68,7 +74,7 @@
     align-content: center;
   }
   
-  .addButton:hover {
+  .newButton:hover {
     background-color: #1ed760; /* Slightly lighter green */
   }
 

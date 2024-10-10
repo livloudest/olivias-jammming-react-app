@@ -70,18 +70,20 @@ const SearchResults = ({
               <h3>{track.name}</h3>
               <h5>{track.artists.map((artist) => artist.name).join(", ")}</h5>
             </div>
-            <button
-              onClick={() => addTrackToPlaylist(track)}
-              className={styles.addButton}
-            >
-              New
-            </button>
-            <button
-              className={styles.addPlaylistButton}
-              onClick={() => addTrackToSelectedPlaylist(track)}
-            >
-              Add
-            </button>
+            <div className={styles.buttonContainer}>
+              <button
+                onClick={() => addTrackToPlaylist(track)}
+                className={styles.newButton}
+              >
+                New
+              </button>
+              <button
+                className={styles.addButton}
+                onClick={() => addTrackToSelectedPlaylist(track)}
+              >
+                Add
+              </button>
+            </div>
           </div>
         ))
       )}

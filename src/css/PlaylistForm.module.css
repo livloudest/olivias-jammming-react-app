@@ -87,6 +87,9 @@
 .trackInfo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
 }
 
 .trackInfo h3 {
