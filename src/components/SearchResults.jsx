@@ -35,20 +35,12 @@ const SearchResults = ({
             },
           }
         );
-        toast.success("New track added to the playlist!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
+        toast.success("New track added to the playlist!");
       } catch (error) {
-        toast.error("Failed to add track to playlist.", {
-          autoClose: 3000,
-        });
+        toast.error("Failed to add track to playlist.");
       }
     } else {
-      toast.warn("Track is already in the playlist", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      toast.warn("Track is already in the playlist");
     }
   };
 

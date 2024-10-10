@@ -89,6 +89,10 @@ const PlaylistForm = ({
   }, [searchTerm, playlists]);
 
   const handleCreatePlaylist = async () => {
+    if (!playlistName.trim()) {
+      toast.info("Please enter a playlist name");
+      return;
+    }
     if (tracks.length === 0) {
       toast.info("Please add tracks to the playlist before creating it.");
       return;
@@ -96,10 +100,7 @@ const PlaylistForm = ({
 
     setIsCreating(true);
     setTracks([]);
-    if (!playlistName.trim()) {
-      toast.info("Please enter a playlist name");
-      return;
-    }
+
 
     try {
       // Create a new playlist
@@ -154,80 +155,80 @@ const PlaylistForm = ({
     }
   };
 
-  const handleAddTracksToSelectedPlaylist = async () => {
-    if (!selectedPlaylist) {
-      toast.info("Please select a playlist");
-      return;
-    }
-    // fetch existing tracks in playlist
-    try {
-      const existingTracksResponse = await axios.get(
-        `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  // const handleAddTracksToSelectedPlaylist = async () => {
+  //   if (!selectedPlaylist) {
+  //     toast.info("Please select a playlist");
+  //     return;
+  //   }
+  //   // fetch existing tracks in playlist
+  //   try {
+  //     const existingTracksResponse = await axios.get(
+  //       `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      const existingTrackUris = existingTracksResponse.data.items.map(
-        (item) => item.track.uri
-      );
+  //     const existingTrackUris = existingTracksResponse.data.items.map(
+  //       (item) => item.track.uri
+  //     );
 
-      const selectedTrackUris = tracks.map((track) => track.uri);
+  //     const selectedTrackUris = tracks.map((track) => track.uri);
 
-      const tracksToAdd = selectedTrackUris.filter(
-        (uri) => !existingTrackUris.includes(uri)
-      );
+  //     const tracksToAdd = selectedTrackUris.filter(
+  //       (uri) => !existingTrackUris.includes(uri)
+  //     );
 
-      const tracksToRemove = existingTrackUris.filter(
-        (uri) => !selectedTrackUris.includes(uri)
-      );
+  //     const tracksToRemove = existingTrackUris.filter(
+  //       (uri) => !selectedTrackUris.includes(uri)
+  //     );
 
-      if (tracksToAdd.length > 0) {
-        await axios.post(
-          `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
-          { uris: tracksToAdd },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        // console.log("Tracks added:", tracksToAdd);
-        toast.success("New Tracks added to the playlist!");
-      }
+  //     if (tracksToAdd.length > 0) {
+  //       await axios.post(
+  //         `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+  //         { uris: tracksToAdd },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+  //       // console.log("Tracks added:", tracksToAdd);
+  //       toast.success("New Tracks added to the playlist!");
+  //     }
 
-      if (tracksToRemove.length > 0) {
-        await axios.request({
-          url: `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          data: {
-            tracks: tracksToRemove.map((uri) => ({ uri })),
-          },
-        });
-        // console.log("tracks removed:", tracksToRemove);
-        toast.success("Tracks removed from the playlist!");
-      }
+  //     if (tracksToRemove.length > 0) {
+  //       await axios.request({
+  //         url: `https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,
+  //         method: "DELETE",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //         data: {
+  //           tracks: tracksToRemove.map((uri) => ({ uri })),
+  //         },
+  //       });
+  //       // console.log("tracks removed:", tracksToRemove);
+  //       toast.success("Tracks removed from the playlist!");
+  //     }
 
-      if (tracksToAdd.length === 0 && tracksToRemove.length === 0) {
-        toast.info("No changes made. Playlist is up to date.");
-      }
+  //     if (tracksToAdd.length === 0 && tracksToRemove.length === 0) {
+  //       toast.info("No changes made. Playlist is up to date.");
+  //     }
 
-      setSelectedPlaylistState("");
-      setSearchTerm("");
-      setDropdownVisible(false);
-      setTracks([]);
-    } catch (error) {
-      // console.error(error.respone ? error.response.data : error);
-      toast.error("Error updating the playlist. Please try again.");
-    }
-  };
+  //     setSelectedPlaylistState("");
+  //     setSearchTerm("");
+  //     setDropdownVisible(false);
+  //     setTracks([]);
+  //   } catch (error) {
+  //     // console.error(error.respone ? error.response.data : error);
+  //     toast.error("Error updating the playlist. Please try again.");
+  //   }
+  // };
 
   const handlePlaylistSelection = (playlistId) => {
     setSelectedPlaylistState(playlistId);

@@ -7,7 +7,7 @@ import SearchResults from "./components/SearchResults";
 import PlaylistForm from "./components/PlaylistForm";
 import TrackList from "./components/TrackList";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
 import Background from "./components/Background";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   const [searched, setSearched] = useState(false);
   const [selectedTracks, setSelectedTracks] = useState([]);
   const [userId, setUserId] = useState("");
-  const [selectedPlaylist, setSelectedPlaylist] = useState('')
+  const [selectedPlaylist, setSelectedPlaylist] = useState("");
   const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function App() {
         {!token && (
           <div className={styles.centeredMessage}>
             <h2>Please Login to Spotify to continue</h2>
-            </div>
+          </div>
         )}
 
         {/* Only display the search and playlist components if the user is logged in */}
@@ -138,10 +138,21 @@ function App() {
               token={token}
               selectedPlaylist={selectedPlaylist}
             />
-
           </>
         )}
-        <ToastContainer />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition:Bounce
+        />
       </div>
     </main>
   );
