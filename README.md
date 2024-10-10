@@ -1,6 +1,6 @@
 # Spotify Playlist Creator and Editor
 
-This web application allows users to search for tracks using the Spotify API, create new playlists, and add tracks to existing playlists. It includes features such as a search bar, tracklist, and playlist management with the ability to update existing playlists and create new ones.
+This web application allows users to search for tracks using the Spotify API, create new playlists, and add tracks to existing playlists. It includes features such as a search bar, tracklist, and authorized user playlist management with the ability to update existing playlists and create new ones.
 
 ## Features
 - Search for tracks and artists using Spotify's API.
