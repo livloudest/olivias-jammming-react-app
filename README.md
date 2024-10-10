@@ -18,5 +18,6 @@ This web application allows users to search for tracks using the Spotify API, cr
 - React
 - Spotify Web API
 - Axios
+- JavaScript
 - CSS Modules
 - Toastify
