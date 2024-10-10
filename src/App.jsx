@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./css/App.module.css";
-import Login from "./components/Login";
-import SearchForm from "./components/SearchForm";
-import SearchResults from "./components/SearchResults";
-import PlaylistForm from "./components/PlaylistForm";
-import TrackList from "./components/TrackList";
+import Login from "./components/Login.jsx";
+import SearchForm from "./components/SearchForm.jsx";
+import SearchResults from "./components/SearchResults.jsx";
+import PlaylistForm from "./components/PlaylistForm.jsx";
+import TrackList from "./components/TrackList.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Background from "./components/Background";
+import Background from "./components/Background.jsx";
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
