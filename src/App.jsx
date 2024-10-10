@@ -8,6 +8,7 @@ import PlaylistForm from "./components/PlaylistForm";
 import TrackList from "./components/TrackList";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import Background from "./components/Background";
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
@@ -63,6 +64,7 @@ function App() {
   return (
     <main className={styles.main}>
       <div className={styles.gridContainer}>
+        <Background />
         <header className={styles.header}>Jammming Spotify App</header>
 
         {/* Render login/logout button */}

@@ -4,8 +4,9 @@
 }
 
 html, body {
-  height: 10vh;
+  height: 100%;
   width: 100%;
+  overflow: auto;
 }
 
 .main {
@@ -21,9 +22,6 @@ html, body {
   gap: 10px;
   width: 100%;
   height: 100%;
-  background-image: url('/images/css-pattern-by-magicpattern.png');
-  background-size: cover;
-  background-position: center;
   flex-grow: 1;
 }
 
@@ -49,7 +47,8 @@ html, body {
   text-align: center;
   font-weight: bold;
   font-size: 2rem;
-  background-color: #1db954; /* Spotify green */
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(10,65,29,1) 23%, rgba(29,185,84,1) 100%);
   padding: 10px;
 }
 
