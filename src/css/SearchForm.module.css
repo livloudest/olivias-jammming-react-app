@@ -28,6 +28,6 @@
   
   .searchForm button:hover {
     cursor: pointer;
-    background-color: rgb(35, 100, 231);
+    background-color: #8ce5ab; /* Slightly lighter green */
     transition: background-color 0.5s ease;
   }

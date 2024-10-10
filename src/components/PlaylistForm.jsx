@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import styles from "../css/PlaylistForm.module.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PlaylistForm = ({
   tracks,
@@ -16,7 +18,6 @@ const PlaylistForm = ({
   const [playlists, setPlaylists] = useState([]);
   const [filteredPlaylists, setFilteredPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylistState] = useState("");
-  // const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -43,14 +44,14 @@ const PlaylistForm = ({
       );
 
       if (userPlaylists.length === 0) {
-        alert("No playlists found");
+        toast.info("No playlists found");
       }
 
       setPlaylists(userPlaylists);
       setFilteredPlaylists(userPlaylists); //Initialize filtered Playlists
     } catch (error) {
-      console.error("Error fetching playlists", error);
-      alert("error fetching playlists", error);
+      // console.error("Error fetching playlists", error);
+      toast.error("Error fetching playlists");
     }
   };
 
@@ -67,7 +68,7 @@ const PlaylistForm = ({
 
       setSelectedPlaylistTracks(response.data.items.map((item) => item.track));
     } catch (error) {
-      alert("Error fetching playlist tracks", error);
+      toast.error("Error fetching playlist tracks");
     }
   };
 
@@ -89,14 +90,14 @@ const PlaylistForm = ({
 
   const handleCreatePlaylist = async () => {
     if (tracks.length === 0) {
-      alert("Please add tracks to the playlist before creating it.");
+      toast.info("Please add tracks to the playlist before creating it.");
       return;
     }
 
     setIsCreating(true);
     setTracks([]);
     if (!playlistName.trim()) {
-      alert("Please enter a playlist name");
+      toast.info("Please enter a playlist name");
       return;
     }
 
@@ -136,18 +137,18 @@ const PlaylistForm = ({
         }
       );
 
-      alert("Playlist created and tracks added!");
+      toast.success("Playlist created and tracks added!");
       setPlaylistName("");
       setSelectedPlaylistState("");
       setDropdownVisible(false);
 
       await fetchUserPlaylists();
     } catch (error) {
-      console.error(
-        "Error creating playlist or adding tracks:",
-        error.response ? error.response.data : error
-      );
-      alert("an error occurred while creating playlist");
+      // console.error(
+      //   "Error creating playlist or adding tracks:",
+      //   error.response ? error.response.data : error
+      // );
+      toast.error("an error occurred while creating playlist");
     } finally {
       setIsCreating(false);
     }
@@ -155,7 +156,7 @@ const PlaylistForm = ({
 
   const handleAddTracksToSelectedPlaylist = async () => {
     if (!selectedPlaylist) {
-      alert("Please select a playlist");
+      toast.info("Please select a playlist");
       return;
     }
     // fetch existing tracks in playlist
@@ -194,8 +195,8 @@ const PlaylistForm = ({
             },
           }
         );
-        console.log("Tracks added:", tracksToAdd);
-        alert("New Tracks added to the playlist!");
+        // console.log("Tracks added:", tracksToAdd);
+        toast.success("New Tracks added to the playlist!");
       }
 
       if (tracksToRemove.length > 0) {
@@ -210,12 +211,12 @@ const PlaylistForm = ({
             tracks: tracksToRemove.map((uri) => ({ uri })),
           },
         });
-        console.log("tracks removed:", tracksToRemove);
-        alert("Tracks removed from the playlist!");
+        // console.log("tracks removed:", tracksToRemove);
+        toast.success("Tracks removed from the playlist!");
       }
 
       if (tracksToAdd.length === 0 && tracksToRemove.length === 0) {
-        alert("No changes made. Playlist is up to date.");
+        toast.info("No changes made. Playlist is up to date.");
       }
 
       setSelectedPlaylistState("");
@@ -223,8 +224,8 @@ const PlaylistForm = ({
       setDropdownVisible(false);
       setTracks([]);
     } catch (error) {
-      console.error(error.respone ? error.response.data : error);
-      alert("Error updating the playlist. Please try again.");
+      // console.error(error.respone ? error.response.data : error);
+      toast.error("Error updating the playlist. Please try again.");
     }
   };
 
@@ -256,7 +257,7 @@ const PlaylistForm = ({
 
   const handleRemoveTrack = async (trackUri) => {
     if (!selectedPlaylist) {
-      alert("Please select a playlist");
+      toast.info("Please select a playlist");
       return;
     }
 
@@ -277,9 +278,11 @@ const PlaylistForm = ({
       setSelectedPlaylistTracks((prevTracks) =>
         prevTracks.filter((track) => track.uri !== trackUri)
       );
+
+      toast.success('Track removed from the playlist!');
     } catch (error) {
-      console.error(error.response ? error.response.data : error);
-      alert("error removing track from the playlist.");
+      // console.error(error.response ? error.response.data : error);
+      toast.error("Error removing track from the playlist.");
     }
   };
 

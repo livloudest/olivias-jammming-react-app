@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/TrackList.module.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selectedPlaylist, token }) => {
 
@@ -21,7 +22,7 @@ const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selecte
           isFromSearch: false
         })));
       } catch (error) {
-        alert('Error fetching playlist tracks', error);
+        toast.error('Error fetching playlist tracks', error);
       }
     };
 
@@ -52,10 +53,10 @@ const TrackList = ({ tracks, setTracks, searchResults, setSearchResults, selecte
         },
       });
       setTracks((prev) => prev.filter((t) => t.id !== track.id));
-      alert('Tracks removed from playlist!');
+      toast.success('Tracks removed from playlist!');
     } catch (error) {
-      console.error('Error removing track from playlist', error);
-      alert('Error removing track from playlist.');
+      // console.error('Error removing track from playlist', error);
+      toast.error('Error removing track from playlist.');
     }
   };
 

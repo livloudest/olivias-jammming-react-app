@@ -78,7 +78,7 @@ function App() {
 
         {!token && (
           <div className={styles.centeredMessage}>
-            <h2>Please log in to spotify to continue</h2>
+            <h2>Please Login to Spotify to continue</h2>
             </div>
         )}
 
@@ -140,7 +140,6 @@ function App() {
           </>
         )}
         <ToastContainer />
-        <footer className={styles.footer}>This is a footer</footer>
       </div>
     </main>
   );

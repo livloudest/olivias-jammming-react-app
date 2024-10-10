@@ -5,7 +5,7 @@
   justify-self: center;
   min-width: 400px;
   max-width: 500px;
-  background-color: rgba(5, 5, 5, 0.764);
+  background-color: rgba(41, 41, 41, 0.452);
   overflow-y: auto;
   margin: 10px 20px;
   padding: 2rem;
@@ -15,7 +15,7 @@
 
 .playlistCard {
   display: flex;
-  background-color: rgb(35, 100, 231);
+  background-color: rgb(75, 78, 84);
   border-radius: 10px;
   padding: 10px;
   text-align: left;
@@ -67,5 +67,5 @@ button:disabled {
 }
 
 button:hover {
-  background-color: #1ed760; /* Slightly lighter green */
+  background-color: #8ce5ab; /* Slightly lighter green */
 }

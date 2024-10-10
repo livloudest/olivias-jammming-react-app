@@ -7,16 +7,20 @@
 
 .playlistForm button:hover {
   cursor: pointer;
-  background-color: rgb(35, 100, 231);
+  background-color: #8ce5ab; /* Slightly lighter green */
   transition: background-color 0.5s ease;
 }
 
 .playlistSearch {
   display: flex;
-  grid-row: 3;
-  grid-column: 2;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /* grid-row: 3;
+  grid-column: 2; */
   position: relative;
   justify-content: center;
+  width: 100%;
 }
 
 .searchHeader {
@@ -29,12 +33,15 @@
 .playlistDropdown {
   position: absolute;
   top: 100%;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-52%);
+  width: 50%;
   background: black;
   border: 1px solid #ccc;
+  border-radius: 10px;
   z-index: 1000;
   list-style: none;
+  padding: 10px;
 }
 
 .playlistItem {
@@ -44,7 +51,7 @@
 
 .playlistItem:hover,
 .selected {
-  background-color: #2d00e2;
+  background-color: #1db954; /* Spotify green */
 }
 
 .selectedPlaylistBox {
@@ -56,7 +63,7 @@
   min-width: 400px;
   max-width: 500px;
   padding: 2rem;
-  background-color: rgba(5, 5, 5, 0.764);
+  background-color: rgba(41, 41, 41, 0.452);
   border-radius: 5px;
   max-height: 100vh;
 }
@@ -67,7 +74,7 @@
 }
 .playlistCard {
   display: flex;
-  background-color: rgb(35, 100, 231);
+  background-color: rgb(75, 78, 84);
   border-radius: 10px;
   padding: 10px;
   text-align: left;

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../css/SearchResults.module.css";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SearchResults = ({
@@ -56,6 +56,8 @@ const SearchResults = ({
     <div className={styles.resultsContainer}>
       {searched && tracks.length === 0 ? (
         <p>No results found</p>
+      ) : !searched ? (
+        <p>No track results</p>
       ) : (
         tracks.map((track) => (
           <div key={track.id} className={styles.trackCard}>
@@ -87,7 +89,6 @@ const SearchResults = ({
           </div>
         ))
       )}
-      <ToastContainer />
     </div>
   );
 };

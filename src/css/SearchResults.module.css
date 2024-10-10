@@ -1,7 +1,7 @@
 .resultsContainer {
     display: grid;
     flex-direction: column;
-    min-width: 300px;
+    min-width: 400px;
     max-width: 500px;
     justify-self: center;
     justify-content: flex-start;
@@ -9,17 +9,17 @@
     grid-column: 1 / auto;
     grid-row: 4 / 10;
     gap: 10px;
-    overflow-y: auto;
+    overflow: auto;
     padding: 30px;
-    max-height: 100%;
+    max-height: 100vh;
     margin: 10px 20px;
     border-radius: 10px;
-    background-color: rgba(5, 5, 5, 0.764);
+    background-color: rgba(41, 41, 41, 0.452);
   }
 
   .trackCard {
     display: flex;
-    background-color: rgb(35, 100, 231);
+    background-color: rgb(75, 78, 84);
     /* border: 2px solid black; */
     border-radius: 10px;
     padding: 10px;
@@ -75,6 +75,6 @@
   }
   
   .newButton:hover {
-    background-color: #1ed760; /* Slightly lighter green */
+    background-color: #8ce5ab; /* Slightly lighter green */
   }
 
