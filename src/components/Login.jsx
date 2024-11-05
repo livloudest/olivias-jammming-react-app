@@ -11,11 +11,11 @@ const Login = ({
   setToken,
   setUserId,
 }) => {
-  const SCOPES = "playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative";
+  const SCOPES =
+    "playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative";
   const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
     SCOPES
   )}&show_dialog=true`;
-
 
   const logout = () => {
     setToken("");
@@ -27,7 +27,7 @@ const Login = ({
     if (token) {
       const logoutTimer = setTimeout(() => {
         logout();
-        alert('Please log in again. Your session has expired.');
+        alert("Please log in again. Your session has expired.");
       }, 3600 * 1000); //logout in one hour
 
       return () => clearTimeout(logoutTimer);
