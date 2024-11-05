@@ -9,6 +9,7 @@ import TrackList from "./components/TrackList.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Background from "./components/Background.jsx";
+import './css/index.module.css'
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
