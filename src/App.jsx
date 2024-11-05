@@ -14,7 +14,7 @@ import './css/index.module.css'
 function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
   // const REDIRECT_URI = "http://localhost:5173/";
-  const REDIRECT_URI = "https://olivias-jammming-spotify-project.netlify.app/";
+  const REDIRECT_URI = "https://olivias-jammming-playlist-app.netlify.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const [token, setToken] = useState("");
@@ -67,7 +67,7 @@ function App() {
     <main className={styles.main}>
       <div className={styles.gridContainer}>
         <Background />
-        <header className={styles.header}>Jammming Spotify App</header>
+        <header className={styles.header}>Jammming Spotify Playlist Creator</header>
 
         {/* Render login/logout button */}
         <Login
