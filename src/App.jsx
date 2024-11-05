@@ -12,7 +12,8 @@ import Background from "./components/Background.jsx";
 
 function App() {
   const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
-  const REDIRECT_URI = "http://localhost:5173/";
+  // const REDIRECT_URI = "http://localhost:5173/";
+  const REDIRECT_URI = "https://olivias-jammming-spotify-project.netlify.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const [token, setToken] = useState("");
