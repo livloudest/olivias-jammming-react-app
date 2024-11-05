@@ -12,7 +12,7 @@ import Background from "./components/Background.jsx";
 import './css/index.module.css'
 
 function App() {
-  const CLIENT_ID = "ffef7cd625344c70ba42775465c170e7";
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
   // const REDIRECT_URI = "http://localhost:5173/";
   const REDIRECT_URI = "https://olivias-jammming-spotify-project.netlify.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
