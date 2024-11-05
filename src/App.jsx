@@ -13,7 +13,6 @@ import './css/index.module.css'
 
 function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
-  console.log('Client ID:', import.meta.env.VITE_CLIENT_ID)
   // const REDIRECT_URI = "http://localhost:5173/";
   const REDIRECT_URI = "https://olivias-jammming-spotify-project.netlify.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
