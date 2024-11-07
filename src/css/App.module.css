@@ -44,16 +44,20 @@ html, body {
 }
 
 .header {
-  display: grid;
-  align-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   grid-column: 1 / 4;
   grid-row: 1;
   text-align: center;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.4rem;
   background: rgb(0,0,0);
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(10,65,29,1) 23%, rgba(29,185,84,1) 100%);
-  padding: 10px;
+}
+
+.header h1 {
+  text-align: center;
 }
 
 .footer {
@@ -92,4 +96,11 @@ html, body {
 .centeredMessage h2 {
   color: rgb(245, 233, 233);
   font-size: 1.5rem;
+}
+
+.logo {
+  width: 70px;
+  height: auto;
+  margin-left: 50px;
+  margin-top: 5px;
 }

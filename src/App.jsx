@@ -9,7 +9,7 @@ import TrackList from "./components/TrackList.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Background from "./components/Background.jsx";
-import './css/index.module.css'
+import "./css/index.module.css";
 
 function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
@@ -67,18 +67,32 @@ function App() {
     <main className={styles.main}>
       <div className={styles.gridContainer}>
         <Background />
-        <header className={styles.header}>Jammming Spotify Playlist Creator</header>
+        <header className={styles.header}>
+          <a
+            href="https://spotify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="./images/spotify-logo.png"
+              alt="Spotify Logo"
+              className={styles.logo}
+            />
+          </a>
+          <h1>Jammming Spotify Playlist Creator</h1>
 
-        {/* Render login/logout button */}
-        <Login
-          token={token}
-          CLIENT_ID={CLIENT_ID}
-          REDIRECT_URI={REDIRECT_URI}
-          AUTH_ENDPOINT={AUTH_ENDPOINT}
-          RESPONSE_TYPE={RESPONSE_TYPE}
-          setToken={setToken}
-          setUserId={setUserId}
-        />
+            {/* Render login/logout button */}
+            <Login
+              token={token}
+              CLIENT_ID={CLIENT_ID}
+              REDIRECT_URI={REDIRECT_URI}
+              AUTH_ENDPOINT={AUTH_ENDPOINT}
+              RESPONSE_TYPE={RESPONSE_TYPE}
+              setToken={setToken}
+              setUserId={setUserId}
+            />
+
+        </header>
 
         {!token && (
           <div className={styles.centeredMessage}>

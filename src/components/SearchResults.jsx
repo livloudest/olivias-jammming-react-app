@@ -54,11 +54,17 @@ const SearchResults = ({
         tracks.map((track) => (
           <div key={track.id} className={styles.trackCard}>
             {track.album.images.length > 0 && (
+              <a 
+               href={`https://open.spotify.com/track/${track.id}`}
+               target="_blank"
+               rel="noopener noreferrer"
+               >
               <img
                 src={track.album.images[0].url}
                 alt={track.name}
                 className={styles.albumImage}
               />
+              </a>
             )}
             <div className={styles.trackInfo}>
               <h3>{track.name}</h3>
